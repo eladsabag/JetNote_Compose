@@ -1,7 +1,5 @@
 package com.example.jetnote_compose.screen
 
-import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,7 +23,7 @@ import com.example.jetnote_compose.components.NoteButton
 import com.example.jetnote_compose.components.NoteInputText
 import com.example.jetnote_compose.data.NotesDataSource
 import com.example.jetnote_compose.model.Note
-import java.time.format.DateTimeFormatter
+import com.example.jetnote_compose.util.formatDate
 
 @Composable
 fun NoteScreen(
@@ -89,7 +87,6 @@ fun NoteScreen(
                 text = "Save",
                 onClick = {
                     if(title.isNotEmpty() && description.isNotEmpty()) {
-                        Log.d("pttt","S")
                         onAddNote(Note(title = title,description = description))
                         title = ""
                         description = ""
@@ -133,11 +130,11 @@ fun NoteRow(
                 ),
             horizontalAlignment = Alignment.Start
         ) {
+            Text(text = note.title,
+                style = MaterialTheme.typography.subtitle2)
             Text(text = note.description, style = MaterialTheme.typography.subtitle1)
-//            Text(
-//                text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
-//                style = MaterialTheme.typography.caption
-//            )
+            Text(text = formatDate(note.entryDate.time),
+                style = MaterialTheme.typography.caption)
         }
     }
 }
